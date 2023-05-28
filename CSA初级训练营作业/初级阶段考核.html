@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* ------------------------------------------------------------------------------------------------ */
+    /* 那个鼠标经过歌单图片的播放小图标效果不会做，tab栏其他歌单懒得去下载图片和复制文字了，功能也都一样所以就没有写 */
+        .bigbox{
+            background-color: #f3f3f3;
+        }
+        .title h1{
+            text-align: center;
+        }
+        .classify{
+            text-align: center;
+        }
+        .classify span{
+            display: inline-block;
+            line-height: 30px;
+            width: 100px;
+        }
+        .music .box{
+            display: flex;
+        }
+        .music .box3{
+            display: flex;
+        }
+        .music .box3 p{
+            display: inline-block;
+        }
+        .music span{
+            display: inline-block;
+            line-height: 30px;
+            width: 100px;
+        }
+        .music .box3 .gd{
+            overflow: hidden;
+            margin: auto;
+            margin: 30px;
+        }
+        .music button{
+            width: 40px;
+            height: 50px;
+            font-size: larger;
+            margin-top: 100px;
+        }
+        .music img{  
+            float: left;    
+            width: 220px;
+            height: 220px;
+        }
+        .enn{
+            color: #31cdc6;
+        }
+        .box2{
+            display: none;
+        }
+        .active{
+            display: flex;
+            margin-top: 20px;
+        }
+         .circle{
+            position: absolute; 
+            bottom: 248px;
+             width:100%;
+            text-align: center;
+            height: 14px;
+        }
+        .circle .cirbox{
+            display: inline-block;
+        }
+        .circle .cirbox li{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e1e1e1;
+            cursor: pointer;
+            margin: 2px;
+        }
+        .circle .cirbox .active1{
+            background: #afafaf;
+        }
+        .gd img:hover{
+            transform: scale(1.1);
+            opacity: 0.8;
+            transition: 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="bigbox">
+    <div class="title"><h1>歌单推荐</h1></div>
+    <div class="classify">
+        <span class="enn">为你推荐</span>
+        <span>网络歌曲</span>
+        <span>KTV热歌</span>
+        <span>背景音乐</span>
+        <span>官方歌单</span>
+        <span>情歌</span>
+        </div>
+    <div class="box1">
+    <div class="music active box2">
+        <span><button class="back"><</button></span>
+        <div class="box3"></div>
+        <span><button class="next">></button></span>
+        <div class="circle">
+        <ul class="cirbox">
+            <li class = 'active1'></li>
+            <li></li>
+        </ul>
+    </div>
+    </div>
+    <div class="box2"></div>
+    <div class="box2"></div>
+    <div class="box2"></div>
+    <div class="box2"></div>
+    <div class="box2"></div>  
+</div>
+</div>
+    <script>
+        const tui=[
+            [{str:'./images/300.webp' ,title:'抖音热歌：全网最火超好听'},
+            {str:'./images/300 (1).webp' ,title:'速度与激情10 电影原声'},
+            {str:'./images/300 (2).webp' ,title:'抖音热歌：让人心动的流行旋律'},
+            {str:'./images/300 (3).webp' ,title:'伤感夜话，烂情绪只能留给自己听'},
+            {str:'./images/300 (4).webp' ,title:'古风KTV： 身穿汉服沉浸体验'}],
+            [
+            {str:'./images/300 (5).webp' ,title:'【0.8x降速】当emo慢下来时'},
+            {str:'./images/300 (6).webp' ,title:'长月烬明 电视剧原声'},
+            {str:'./images/300 (7).webp' ,title:'安静听歌，是独处最好的解压方式'},
+            {str:'./images/300 (8).webp' ,title:'0.8x降速情歌：是刚好的温柔'},
+            {str:'./images/300 (9).webp' ,title:'很遗憾吧，最后连一张合照都没有'}]
+        ]
+        let i=0
+        const box3=document.querySelector('.box3')
+        const music=document.querySelector('.music')
+        tui[i].forEach(e=>box3.innerHTML+=`<div class='gd'><img src="${e.str}" alt=""><p>${e.title}</p></div>`)
+
+        // 点击实现切换歌单
+        const btn1=document.querySelector('.back')
+        const btn2=document.querySelector('.next')
+        btn1.addEventListener('click',()=>{
+            if(i==tui.length-1){
+                i=0
+                box3.innerHTML=null
+                tui[i].forEach(e=>box3.innerHTML+=`<div class='gd'><img src="${e.str}" alt=""><p>${e.title}</p></div>`)
+            }
+            else{
+                i++
+                box3.innerHTML=null
+                tui[i].forEach(e=>box3.innerHTML+=`<div class='gd'><img src="${e.str}" alt=""><p>${e.title}</p></div>`)
+            }
+            const ac1=document.querySelector('.active1')
+            ac1.classList.remove('active1')
+            lis[i].classList.add('active1')
+        })
+        btn2.addEventListener('click',()=>{
+            if(i==0){
+                i=tui.length-1
+                box3.innerHTML=null
+                tui[i].forEach(e=>box3.innerHTML+=`<div class='gd'><img src="${e.str}" alt=""><p>${e.title}</p></div>`)
+            }
+            else{
+                i--
+                box3.innerHTML=null
+                tui[i].forEach(e=>box3.innerHTML+=`<div class='gd'><img src="${e.str}" alt=""><p>${e.title}</p></div>`)
+            }
+            const ac1=document.querySelector('.active1')
+            ac1.classList.remove('active1')
+            lis[i].classList.add('active1')
+        })
+        // 
+        const bigbox=document.querySelector('.bigbox')
+        bigbox.addEventListener('mouseover',()=>{
+            btn1.style.display='block'
+            btn2.style.display='block'
+        })
+        bigbox.addEventListener('mouseout',()=>{
+            btn1.style.display='none'
+            btn2.style.display='none'
+        })
+
+
+        // 自动播放
+        var lis=document.querySelectorAll('ul li')
+        function Fn(){return setInterval(()=>{
+            if(i==tui.length-1){
+                i=0
+                box3.innerHTML=null
+                tui[i].forEach(e=>box3.innerHTML+=`<div class='gd'><img src="${e.str}" alt=""><p>${e.title}</p></div>`)
+            }
+            else{
+                i++
+                box3.innerHTML=null
+                tui[i].forEach(e=>box3.innerHTML+=`<div class='gd'><img src="${e.str}" alt=""><p>${e.title}</p></div>`)
+            }
+            let ps=document.querySelectorAll('.box3 p')
+            ps.forEach(e=>{
+            e.addEventListener('mouseover',()=>{e.classList.add('enn')})
+            e.addEventListener('mouseout',()=>{e.classList.remove('enn')})
+            const ac1=document.querySelector('.active1')
+            ac1.classList.remove('active1')
+            lis[i].classList.add('active1')
+        })
+        },3000)}
+        let m1=Fn()
+        btn1.addEventListener('mouseout',()=>{
+            m1=Fn()
+        })
+        
+        btn2.addEventListener('mouseout',()=>{
+            m1=Fn()
+        })
+        btn1.addEventListener('mouseover',()=>{
+            clearInterval(m1)
+        })
+        btn2.addEventListener('mouseover',()=>{
+            clearInterval(m1)
+        })
+
+        // 小圆点
+        lis.forEach((e,index)=>{
+            e.addEventListener('click',()=>{
+                i=index
+                box3.innerHTML=null
+                tui[i].forEach(e=>box3.innerHTML+=`<div class='gd'><img src="${e.str}" alt=""><p>${e.title}</p></div>`)
+                const ac1=document.querySelector('.active1')
+                ac1.classList.remove('active1')
+                lis[i].classList.add('active1')
+            })
+        })
+        
+        // tab栏
+        let index2
+        const cls=document.querySelectorAll('.classify span')
+        const box2=document.querySelectorAll('.box2')
+        cls.forEach((e,index2)=>{
+            e.addEventListener('click',()=>{
+                const enn=document.querySelector('.enn')
+                enn.classList.remove('enn')
+                e.classList.add('enn')
+                
+                const ac=document.querySelector('.active')
+                ac.classList.remove('active')
+                box2[index2].classList.add('active')
+            })
+        })
+        
+        
+    </script>
+</body>
+</html>
